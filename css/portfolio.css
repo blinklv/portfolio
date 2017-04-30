@@ -1,0 +1,11 @@
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  overflow:hidden;
+}
