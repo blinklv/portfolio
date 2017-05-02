@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-04-30
+// Last Change: 2017-05-01
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -30,8 +30,8 @@ module.exports = function(grunt) {
                 tasks: ["copy:devel"]
             },
             img: {
-                files: ["img/**/*.{gif,jpg,jpeg,png}"],
-                tasks: ["responsive_images"]
+                files: ["img/**/*.{gif,jpg,jpeg,png,svg}"],
+                tasks: ["responsive_images", "copy:devel"]
             }
         },
 
@@ -54,6 +54,11 @@ module.exports = function(grunt) {
                     expand: true,
                     src: ["index.html", "html/**/*.html"],
                     dest: "build/devel/"
+                },{
+                    expand: true,
+                    cwd: "img/",
+                    src: ["**/*.svg"],
+                    dest: "build/devel/img/"
                 }]
             },
             release: {
@@ -65,7 +70,7 @@ module.exports = function(grunt) {
                 },{
                     expand: true,
                     cwd: "build/devel/img/",
-                    src: ["**/*.{gif,jpg,jpeg,png}"],
+                    src: ["**/*.{gif,jpg,jpeg,png,svg}"],
                     dest: "build/release/img/"
                 }]
             }
@@ -73,7 +78,7 @@ module.exports = function(grunt) {
 
         // Generate multi-resolution images.
         responsive_images: {
-            target: {
+            normal: {
                 options: {
                     engine: "im",
                     sizes: [{
@@ -101,7 +106,32 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: "img/",
-                    src: ["**/*.{gif,jpg,jpeg,png}"],
+                    src: ["**/*.{gif,jpg,jpeg,png}","!**/logo.{gif,jpg,jpeg,png}","!**/*{-,_}logo.{gif,jpg,jpeg,png}"],
+                    dest: "build/devel/img/"
+                }]
+            },
+
+            // The shape of orignal logo picture is preferably square.
+            logo: {
+                options: {
+                    engine: "im",
+                    sizes: [{
+                        name: "s",
+                        width: 48
+                    },{
+                        name: "m",
+                        width: 128,
+                        quality: 90
+                    },{
+                        name: "l",
+                        width: 256,
+                        quality: 70
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    cwd: "img/",
+                    src: ["**/logo.{gif,jpg,jpeg,png}", "**/*{-,_}logo.{gif,jpg,jpeg,png}"],
                     dest: "build/devel/img/"
                 }]
             }
@@ -198,6 +228,11 @@ module.exports = function(grunt) {
             }
         },
 
+        clean: {
+            devel: ["build/devel"],
+            release: ["build/release"]
+        },
+
         // Auxiliary method.
         create_banner: function() {
             var str = "";
@@ -226,10 +261,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-banner");
 
     grunt.registerTask("devel", ["sass", "concat", "jshint", "usebanner", "responsive_images", "copy:devel"]);
     grunt.registerTask("release", ["devel", "uncss", "cssmin", "uglify", "copy:release"]);
+    grunt.registerTask("rebuild-devel", ["clean:devel", "devel"]);
+    grunt.registerTask("rebuild", ["clean", "release"]);
     grunt.registerTask("default", ["release"]);
 };
 
