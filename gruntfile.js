@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-01
+// Last Change: 2017-05-03
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -59,6 +59,11 @@ module.exports = function(grunt) {
                     cwd: "img/",
                     src: ["**/*.svg"],
                     dest: "build/devel/img/"
+                },{
+                    expand: true,
+                    cwd: "font/",
+                    src: ["**/*.woff", "**/*.woff2"],
+                    dest: "build/devel/css/font/"
                 }]
             },
             release: {
@@ -72,6 +77,11 @@ module.exports = function(grunt) {
                     cwd: "build/devel/img/",
                     src: ["**/*.{gif,jpg,jpeg,png,svg}"],
                     dest: "build/release/img/"
+                },{
+                    expand: true,
+                    cwd: "build/devel/css/font/",
+                    src: ["**/*.woff", "**/*.woff2"],
+                    dest: "build/release/css/font/"
                 }]
             }
         },
@@ -153,7 +163,7 @@ module.exports = function(grunt) {
         // Concatenate files, but exclude some files of 'min' suffix.
         concat: {
             css: {
-                src: ["css/*.css", "!css/main.css","!css/*.min.css"],
+                src: ["css/*.css", "font/*.css", "!css/main.css","!css/*.min.css"],
                 dest: "build/devel/css/main.css"
             },
             js: {
