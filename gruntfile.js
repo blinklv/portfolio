@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 tasks: ["sass", "concat:css"]
             },
             css: {
-                files: ["css/*.css", "!css/*.min.css"],
+                files: ["font/*.css", "css/*.css", "!css/*.min.css"],
                 tasks: ["concat:css"]
             },
             js: {
@@ -32,6 +32,10 @@ module.exports = function(grunt) {
             img: {
                 files: ["img/**/*.{gif,jpg,jpeg,png,svg}"],
                 tasks: ["responsive_images", "copy:devel"]
+            },
+            font: {
+                files: ["font/*.{woff, woff2}"],
+                tasks: ["copy:devel"]
             }
         },
 
@@ -62,7 +66,7 @@ module.exports = function(grunt) {
                 },{
                     expand: true,
                     cwd: "font/",
-                    src: ["**/*.woff", "**/*.woff2"],
+                    src: ["**/*.{woff, woff2}"],
                     dest: "build/devel/css/font/"
                 }]
             },
@@ -163,7 +167,7 @@ module.exports = function(grunt) {
         // Concatenate files, but exclude some files of 'min' suffix.
         concat: {
             css: {
-                src: ["css/*.css", "font/*.css", "!css/main.css","!css/*.min.css"],
+                src: ["font/*.css", "css/*.css", "!css/main.css","!css/*.min.css"],
                 dest: "build/devel/css/main.css"
             },
             js: {
