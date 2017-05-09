@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-03
+// Last Change: 2017-05-08
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                 tasks: ["responsive_images", "copy:devel"]
             },
             font: {
-                files: ["font/*.{woff, woff2}"],
+                files: ["font/*.{woff,woff2}"],
                 tasks: ["copy:devel"]
             }
         },
@@ -66,17 +66,12 @@ module.exports = function(grunt) {
                 },{
                     expand: true,
                     cwd: "font/",
-                    src: ["**/*.{woff, woff2}"],
+                    src: ["**/*.{woff,woff2}"],
                     dest: "build/devel/css/font/"
                 }]
             },
             release: {
                 files: [{
-                    expand: true,
-                    cwd: "build/devel/",
-                    src: ["index.html", "html/**/*.html"],
-                    dest: "build/release/"
-                },{
                     expand: true,
                     cwd: "build/devel/img/",
                     src: ["**/*.{gif,jpg,jpeg,png,svg}"],
@@ -131,7 +126,7 @@ module.exports = function(grunt) {
                     engine: "im",
                     sizes: [{
                         name: "s",
-                        width: 48
+                        width: 64
                     },{
                         name: "m",
                         width: 128,
@@ -227,6 +222,36 @@ module.exports = function(grunt) {
             }
         },
 
+        // Minifying HTML files.
+        htmlmin: {
+            options: {
+                removeComments: true,
+                collapseWhitespace: true
+            },
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: "build/devel/",
+                    src: ["index.html", "html/*.html"],
+                    dest: "build/release/"
+                }]
+            }
+        },
+
+        replace: {
+            release: {
+                src: ["build/release/index.html", "build/release/html/*.html"],
+                overwrite: true,
+                // NOTICE: The asterisk(*) wildcard should be in non-greedy mode.
+                replacements: [{
+                    from: /href="(.*?)\.css"/g,
+                    to: 'href="$1.min.css"'
+                },{
+                    from: /src="(.*?)\.js"/g,
+                    to: 'src="$1.min.js"'
+                }]
+            }
+        },
 
         // Adding a banner information to some files.
         usebanner: {
@@ -275,11 +300,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-htmlmin");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-text-replace");
     grunt.loadNpmTasks("grunt-banner");
 
     grunt.registerTask("devel", ["sass", "concat", "jshint", "usebanner", "responsive_images", "copy:devel"]);
-    grunt.registerTask("release", ["devel", "uncss", "cssmin", "uglify", "copy:release"]);
+    grunt.registerTask("release", ["devel", "uncss", "cssmin", "uglify", "copy:release",  "htmlmin", "replace:release"]);
     grunt.registerTask("rebuild-devel", ["clean:devel", "devel"]);
     grunt.registerTask("rebuild", ["clean", "release"]);
     grunt.registerTask("default", ["release"]);
