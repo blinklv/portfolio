@@ -95,7 +95,6 @@ picture {
   height: auto;
   overflow: hidden;
   padding: 5px;
-  box-shadow: 3px 3px 20px 1px rgba(0, 0, 0, 0.42);
 }
 
 .bin {
@@ -112,6 +111,7 @@ picture {
 
 figure {
   margin: 20px;
+  box-shadow: 3px 3px 20px 1px rgba(0, 0, 0, 0.42);
 }
 
 @media screen and (max-width: 412px) {
@@ -120,16 +120,26 @@ figure {
   }
 
   figure {
-    margin: 0;
+    margin: 0 0 20px 0;
+
   }
 }
 
 figcaption {
   display: none;
-  padding: 10px;
-  background: linear-gradient(to top, #1cd8d2, #93edc7);
+  padding: 20px;
+  color: #777;
   @media screen and (max-width: 412px) {
     display: block;
+    &:before {
+      content: " ";
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      border-radius: 5px;
+      background: #60fdbb;
+      margin-left: 1em;
+    }
   }
 }
 
