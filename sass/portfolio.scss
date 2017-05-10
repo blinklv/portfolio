@@ -41,16 +41,16 @@ hr {
   }
 }
 
-article, .first, .second, .third {
+article, .bulk {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
 }
 
-.first {
+.bulk:nth-child(1) {
   width: 66.6%;
-  figure {
+  .bin {
     width: 100%;
   }
 
@@ -69,22 +69,22 @@ article, .first, .second, .third {
   }
 }
 
-.second {
+.bulk:nth-child(2) {
   width: 33.3%;
-  figure {
+  .bin {
     width: 100%;
   }
 
   @media screen and (max-width: 768px) {
     width: 100%;
 
-    figure {
-      width: 45%;
+    .bin {
+      width: 50%;
     }
   }
 
   @media screen and (max-width: 412px) {
-    figure {
+    .bin {
       width: 100%;
     }
   }
@@ -95,29 +95,32 @@ picture {
   height: auto;
   overflow: hidden;
   padding: 5px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   box-shadow: 3px 3px 20px 1px rgba(0, 0, 0, 0.42);
 }
 
-figure {
-  width: 30%;
-  margin: 10px;
+.bin {
+  width: 33.3%;
 
   @media screen and (max-width: 768px) {
-    width: 45%;
+    width: 50%;
   }
 
   @media screen and (max-width: 412px) {
     width: 100%;
-    margin: 0;
   }
+}
+
+figure {
+  margin: 20px;
 }
 
 @media screen and (max-width: 412px) {
   picture {
     padding: 0;
+  }
+
+  figure {
+    margin: 0;
   }
 }
 
