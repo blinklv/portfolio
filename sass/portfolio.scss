@@ -58,6 +58,23 @@ article, .bulk {
     padding: 10px;
   }
 
+  figcaption {
+    margin: 10px;
+  }
+
+  @media screen and (min-width: 413px) {
+    figcaption {
+      width: calc(100% - 20px);
+    }
+
+    figure:hover {
+      figcaption {
+        transform: translateY(calc(-100% - 20px));
+        transition: transform 300ms;
+      }
+    }
+  }
+
   @media screen and (max-width: 768px) {
     width: 100%;
   }
@@ -66,6 +83,7 @@ article, .bulk {
     picture {
       padding: 0;
     }
+
   }
 }
 
@@ -112,6 +130,15 @@ picture {
 figure {
   margin: 20px;
   box-shadow: 3px 3px 20px 1px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    figcaption {
+      transform: translateY(calc(-100% - 10px));
+      transition: transform 300ms;
+    }
+  }
 }
 
 @media screen and (max-width: 412px) {
@@ -126,10 +153,19 @@ figure {
 }
 
 figcaption {
-  display: none;
   padding: 20px;
   color: #777;
+  margin: 5px;
+
+  @media screen and (min-width: 413px) {
+    display: block;
+    width: calc(100% - 10px);
+    position: absolute;
+    background: rgba(0,0,0, 0.7);
+  }
+
   @media screen and (max-width: 412px) {
+    width: 100%;
     display: block;
     &:before {
       content: " ";
