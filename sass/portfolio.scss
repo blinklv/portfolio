@@ -133,10 +133,12 @@ figure {
   overflow: hidden;
   position: relative;
 
-  &:hover {
-    figcaption {
-      transform: translateY(calc(-100% - 10px));
-      transition: transform 300ms;
+  @media screen and (min-width: 413px) {
+    &:hover {
+      figcaption {
+        transform: translateY(calc(-100% - 10px));
+        transition: transform 300ms;
+      }
     }
   }
 }
@@ -154,7 +156,7 @@ figure {
 
 figcaption {
   padding: 20px;
-  color: #777;
+  color: #DDD;
   margin: 5px;
 
   @media screen and (min-width: 413px) {
@@ -167,6 +169,7 @@ figcaption {
   @media screen and (max-width: 412px) {
     width: 100%;
     display: block;
+    color: #777;
     &:before {
       content: " ";
       display: inline-block;
