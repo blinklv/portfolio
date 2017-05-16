@@ -1,0 +1,44 @@
+doctype html
+
+head
+  meta(charset="utf8")
+  meta(name="viewport" content="width=device-width, initial-scale=1")
+  link(rel="stylesheet" href="css/normalize.css")
+  link(rel="stylesheet" href="css/main.css")
+  title blinklv's portfolio
+
+body
+  header
+    .logo
+      img(src="img/logo-m.jpg" alt="logo")
+
+    .title
+      h1 Blink Lv
+      p Welcome To My Portfolio
+
+  main
+    article
+      mixin bin(img)
+        .bin
+          figure
+            picture
+              - 
+                var irand = Math.floor(Math.random() * 100) + 1024;
+                var src="http://lorempixel.com/1440/" + irand;
+              img(src=src)
+
+            figcaption There is nothing, so don't go there.
+
+      - for ( var i = 0; i < 3; ++i )
+        section(class="bulk")
+          if i == 0
+            +bin
+          else if i == 1
+            - for ( var j = 0; j < 2; ++j )
+              - var height = 320 + j;
+              +bin
+          else
+            - for ( var j = 0; j < 36; ++j )
+              +bin
+
+  footer

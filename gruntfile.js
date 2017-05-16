@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-08
+// Last Change: 2017-05-16
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -36,6 +36,10 @@ module.exports = function(grunt) {
             font: {
                 files: ["font/*.{woff,woff2}"],
                 tasks: ["copy:devel"]
+            },
+            pug: {
+                files: ["index.pug", "pug/**/*.pug"],
+                tasks: ["pug"]
             }
         },
 
@@ -222,6 +226,29 @@ module.exports = function(grunt) {
             }
         },
 
+        // Compiling Pug files to HTML files.
+        pug: {
+            target: {
+                options: {
+                    pretty: true
+                },
+                files: [{
+                    expand: true,
+                    src: ["index.pug"],
+                    dest: "build/devel/",
+                    ext: ".html",
+                    extDot: "last"
+                },{
+                    expand: true,
+                    cwd: "pug/",
+                    src: ["*.pug"],
+                    dest: "build/devel/html/",
+                    ext: ".html",
+                    extDot: "last"
+                }]
+            }
+        },
+
         // Minifying HTML files.
         htmlmin: {
             options: {
@@ -302,10 +329,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-htmlmin");
     grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-contrib-pug");
     grunt.loadNpmTasks("grunt-text-replace");
     grunt.loadNpmTasks("grunt-banner");
 
-    grunt.registerTask("devel", ["sass", "concat", "jshint", "usebanner", "responsive_images", "copy:devel"]);
+    grunt.registerTask("devel", ["sass", "concat", "jshint", "usebanner", "responsive_images", "pug", "copy:devel"]);
     grunt.registerTask("release", ["devel", "uncss", "cssmin", "uglify", "copy:release",  "htmlmin", "replace:release"]);
     grunt.registerTask("rebuild-devel", ["clean:devel", "devel"]);
     grunt.registerTask("rebuild", ["clean", "release"]);
