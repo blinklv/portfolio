@@ -3,10 +3,27 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-16
+// Last Change: 2017-05-17
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
+
+    // Get file list (include directory) recursively
+    function get_files(cwd) {
+        cwd = cwd || "";
+        var tmp = grunt.file.expand({filter: "isFile", cwd: cwd}, ["*"]);
+        var files = tmp.reduce(function(obj, item, i) {
+            obj[i] = item;
+            return obj;
+        }, {});
+
+        tmp = grunt.file.expand({filter: "isDirectory", cwd: cwd}, ["*"]);
+        files = tmp.reduce(function(obj, item) {
+            obj[item] = get_files(item);
+            return obj;
+        }, files);
+        return files;
+    }
 
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
@@ -230,7 +247,12 @@ module.exports = function(grunt) {
         pug: {
             target: {
                 options: {
-                    pretty: true
+                    pretty: true,
+                    data: function(dest, src) {
+                      return {
+                          files: get_files()
+                      };
+                    }
                 },
                 files: [{
                     expand: true,
