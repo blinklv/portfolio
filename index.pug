@@ -23,27 +23,33 @@ body
           figure
             picture
               - 
-                alt = src.replace(/\.[^/.]+$/, "");
-                small = "img/" + src.replace(/\.([^/.]+)$/, "-m.$1");
-                medium = "img/" + src.replace(/\.([^/.]+)$/, "-l.$1");
-                large = "img/" + src.replace(/\.([^/.]+)$/, "-xl.$1");
+                var alt = src.replace(/\.[^/.]+$/, "");
+                var small = "img/" + src.replace(/\.([^/.]+)$/, "-m.$1");
+                var medium = "img/" + src.replace(/\.([^/.]+)$/, "-l.$1");
+                var large = "img/" + src.replace(/\.([^/.]+)$/, "-xl.$1");
 
               source(media="(max-width:412px)" srcset=small)
               source(media="(max-width: 768px)" srcset=medium)
               img(src=large alt=alt)
 
-            figcaption There is nothing, so don't go there.
+            - 
+              var description = descriptions[alt + ".txt"] || "There is nothing";
+              var description = description.replace(/\r\n|\r|\n/gm, "");
+            figcaption #{description}
 
-      //- We think there are not subdirectories existing in the img directory.
       - 
         var imgs = Object.keys(files.img).reduce(function(arr, key) {
-          var val = files.img[key];
-          if (! (/logo/.test(val)) ) {
-            arr.push(val);
+          // The key must be number.
+          if ( /[0-9]+/.test(key) ) {
+            var val = files.img[key];
+            if (! (/logo/.test(val)) ) {
+              arr.push(val);
+            }
           }
           return arr;
         }, []);
 
+        var descriptions = files.img.description;
         var top = 0;
         var n = imgs.length;
 

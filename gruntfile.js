@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 
     // Get file list (include directory) recursively
     function get_files(cwd) {
-        cwd = cwd || "";
+        cwd = cwd || "" && cwd + "/";
         var tmp = grunt.file.expand({filter: "isFile", cwd: cwd}, ["*"]);
         var files = tmp.reduce(function(obj, item, i) {
             obj[i] = item;
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 
         tmp = grunt.file.expand({filter: "isDirectory", cwd: cwd}, ["*"]);
         files = tmp.reduce(function(obj, item) {
-            obj[item] = get_files(item);
+            obj[item] = get_files(cwd + item + "/");
             return obj;
         }, files);
         return files;
@@ -249,8 +249,14 @@ module.exports = function(grunt) {
                 options: {
                     pretty: true,
                     data: function(dest, src) {
+                      var files = get_files();
+                      files.img.description = Object.keys(files.img.description).reduce(function(obj, i){
+                        var key = files.img.description[i];
+                        obj[key] = grunt.file.read("img/description/" + key);
+                        return obj;
+                      }, {});
                       return {
-                          files: get_files()
+                          files: files
                       };
                     }
                 },
