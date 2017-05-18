@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-17
+// Last Change: 2017-05-18
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
                         quality: 70
                     },{
                         name: "l",
-                        width: 600,
+                        width: 720,
                         quality: 70
                     },{
                         name: "xl",

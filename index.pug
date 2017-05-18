@@ -10,7 +10,7 @@ head
 body
   header
     .logo
-      img(src="img/logo-m.jpg" alt="logo")
+      img(src="img/logo-s.jpg" alt="logo")
 
     .title
       h1 Blink Lv
@@ -24,9 +24,13 @@ body
             picture
               - 
                 alt = src.replace(/\.[^/.]+$/, "");
-                src = "img/" + src.replace(/\.([^/.]+)$/, "-xl.$1");
+                small = "img/" + src.replace(/\.([^/.]+)$/, "-m.$1");
+                medium = "img/" + src.replace(/\.([^/.]+)$/, "-l.$1");
+                large = "img/" + src.replace(/\.([^/.]+)$/, "-xl.$1");
 
-              img(src=src alt=alt)
+              source(media="(max-width:412px)" srcset=small)
+              source(media="(max-width: 768px)" srcset=medium)
+              img(src=large alt=alt)
 
             figcaption There is nothing, so don't go there.
 
