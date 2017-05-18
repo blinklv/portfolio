@@ -51,12 +51,17 @@ module.exports = function(grunt) {
                 tasks: ["responsive_images", "copy:devel"]
             },
             font: {
-                files: ["font/*.{woff,woff2}"],
+                files: ["font/*.{woff,woff2,eot,ttf,otf,svg}"],
                 tasks: ["copy:devel"]
             },
             pug: {
                 files: ["index.pug", "pug/**/*.pug"],
                 tasks: ["pug"]
+            },
+            vendor: {
+              cwd: "vendor/",
+              files: ["**/*.js", "**/*.css", "!**/*.min.js", "!**/*.min.css"],
+              tasks: ["copy:devel"]
             }
         },
 
@@ -87,7 +92,7 @@ module.exports = function(grunt) {
                 },{
                     expand: true,
                     cwd: "font/",
-                    src: ["**/*.{woff,woff2}"],
+                    src: ["**/*.{woff,woff2,eot,ttf,otf,svg}"],
                     dest: "build/devel/css/font/"
                 }]
             },
@@ -100,7 +105,7 @@ module.exports = function(grunt) {
                 },{
                     expand: true,
                     cwd: "build/devel/css/font/",
-                    src: ["**/*.woff", "**/*.woff2"],
+                    src: ["**/*.{woff,woff2,eot,ttf,otf,svg}"],
                     dest: "build/release/css/font/"
                 }]
             }

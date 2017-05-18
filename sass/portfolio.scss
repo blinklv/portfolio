@@ -45,6 +45,7 @@ article, .bulk {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  perspective: 1000px;
 }
 
 .bulk:nth-child(1) {
@@ -154,9 +155,14 @@ figure {
 }
 
 figcaption {
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   color: #DDD;
   margin: 5px;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 
   @media screen and (min-width: 413px) {
     display: block;
@@ -169,7 +175,7 @@ figcaption {
     width: 100%;
     display: block;
     color: #777;
-    &:before {
+    p:before {
       content: " ";
       display: inline-block;
       height: 10px;
@@ -177,6 +183,23 @@ figcaption {
       border-radius: 5px;
       background: #60fdbb;
       margin: 0 1em;
+    }
+  }
+}
+
+.tag {
+  width: 100%;
+  margin-top: 10px;
+  text-align: right;
+
+  i {
+    margin: 0 0.6em;
+
+    @media screen and (min-width: 769px) {
+      &:hover {
+        color: #1cd8d2;
+        cursor: pointer;
+      }
     }
   }
 }
@@ -203,5 +226,27 @@ img {
 
   h1 {
     font-weight: lighter;
+  }
+}
+
+@media screen and (min-width: 413px) {
+  .bin {
+    opacity: 0;
+  }
+
+  .bin.is-visible {
+    animation: Load 600ms ease-in forwards;
+  }
+}
+
+@keyframes Load {
+  0% {
+    opacity: 0;
+    transform-origin: center top;
+    transform: rotateX(45deg);
+  }
+
+  100% {
+    opacity: 1;
   }
 }

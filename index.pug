@@ -3,7 +3,10 @@ doctype html
 head
   meta(charset="utf8")
   meta(name="viewport" content="width=device-width, initial-scale=1")
+  script(src="js/jquery-3.2.0.js")
+  script(src="js/main.js")
   link(rel="stylesheet" href="css/normalize.css")
+  link(rel="stylesheet" href="css/font-awesome.css")
   link(rel="stylesheet" href="css/main.css")
   title blinklv's portfolio
 
@@ -35,7 +38,12 @@ body
             - 
               var description = descriptions[alt + ".txt"] || "There is nothing";
               var description = description.replace(/\r\n|\r|\n/gm, "");
-            figcaption #{description}
+            figcaption 
+              p #{description}
+              .tag
+                i(class="fa fa-thumbs-up" aria-hidden="true")
+                i(class="fa fa-star" aria-hidden="true")
+                i(class="fa fa-download" aria-hidden="true")
 
       - 
         var imgs = Object.keys(files.img).reduce(function(arr, key) {
