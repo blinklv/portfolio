@@ -27,85 +27,15 @@ main {
   max-width: 1280px;
 }
 
-footer {
-  width: 100%;
-  max-width: 1280px;
-}
-
-hr {
-  height: 1px;
-  background: #ccc;
-  margin: {
-    top: 10px;
-    bottom: 10px;
-  }
-}
-
-article, .bulk {
+article {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  perspective: 1000px;
 }
 
-.bulk:nth-child(1) {
-  width: 66.6%;
-  .bin {
-    width: 100%;
-  }
-
-  picture {
-    padding: 10px;
-  }
-
-  figcaption {
-    margin: 10px;
-  }
-
-  @media screen and (min-width: 413px) {
-    figcaption {
-      width: calc(100% - 20px);
-    }
-
-    figure:hover {
-      figcaption {
-        transform: translateY(calc(-100% - 20px));
-        transition: transform 300ms;
-      }
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
-
-  @media screen and (max-width: 412px) {
-    picture {
-      padding: 0;
-    }
-
-  }
-}
-
-.bulk:nth-child(2) {
-  width: 33.3%;
-  .bin {
-    width: 100%;
-  }
-
-  @media screen and (max-width: 768px) {
-    width: 100%;
-
-    .bin {
-      width: 50%;
-    }
-  }
-
-  @media screen and (max-width: 412px) {
-    .bin {
-      width: 100%;
-    }
-  }
+footer {
+  width: 100%;
+  max-width: 1280px;
 }
 
 picture {
@@ -113,17 +43,9 @@ picture {
   height: auto;
   overflow: hidden;
   padding: 5px;
-}
 
-.bin {
-  width: 33.3%;
-
-  @media screen and (max-width: 768px) {
-    width: 50%;
-  }
-
-  @media screen and (max-width: 412px) {
-    width: 100%;
+  @media screen and (max-width: 424px) {
+      padding: 0;
   }
 }
 
@@ -133,7 +55,11 @@ figure {
   overflow: hidden;
   position: relative;
 
-  @media screen and (min-width: 413px) {
+  @media screen and (max-width: 424px) {
+      margin: 0 0 20px 0;
+  }
+
+  @media screen and (min-width: 425px) {
     &:hover {
       figcaption {
         transform: translateY(calc(-100% - 10px));
@@ -143,15 +69,10 @@ figure {
   }
 }
 
-@media screen and (max-width: 412px) {
-  picture {
-    padding: 0;
-  }
-
-  figure {
-    margin: 0 0 20px 0;
-
-  }
+img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 figcaption {
@@ -164,14 +85,14 @@ figcaption {
     padding: 0;
   }
 
-  @media screen and (min-width: 413px) {
+  @media screen and (min-width: 425px) {
     display: block;
     width: calc(100% - 10px);
     position: absolute;
     background: rgba(0,0,0, 0.7);
   }
 
-  @media screen and (max-width: 412px) {
+  @media screen and (max-width: 424px) {
     width: 100%;
     display: block;
     color: #777;
@@ -187,23 +108,6 @@ figcaption {
   }
 }
 
-.tag {
-  width: 100%;
-  margin-top: 10px;
-  text-align: right;
-
-  i {
-    margin: 0 0.6em;
-
-    @media screen and (min-width: 769px) {
-      &:hover {
-        color: #1cd8d2;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
 .logo {
   width: 64px;
   height: 64px;
@@ -211,12 +115,6 @@ figcaption {
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
-}
-
-img {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 .title {
@@ -229,13 +127,106 @@ img {
   }
 }
 
-@media screen and (min-width: 413px) {
-  .bin {
-    opacity: 0;
+.bulk {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  perspective: 1000px;
+
+  &:nth-child(1) {
+      width: 66.6%;
+      .bin {
+        width: 100%;
+      }
+
+      picture {
+        padding: 10px;
+      }
+
+      figcaption {
+        margin: 10px;
+      }
+
+      @media screen and (min-width: 425px) {
+        figcaption {
+          width: calc(100% - 20px);
+        }
+
+        figure:hover {
+          figcaption {
+            transform: translateY(calc(-100% - 20px));
+            transition: transform 300ms;
+          }
+        }
+      }
+
+      @media screen and (max-width: 1024px) {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 424px) {
+        picture {
+          padding: 0;
+        }
+      }
   }
 
-  .bin.is-visible {
-    animation: Load 600ms ease-in forwards;
+  &:nth-child(2) {
+      width: 33.3%;
+      .bin {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 1024px) {
+        width: 100%;
+
+        .bin {
+          width: 50%;
+        }
+      }
+
+      @media screen and (max-width: 424px) {
+        .bin {
+          width: 100%;
+        }
+      }
+  }
+}
+
+.bin {
+  width: 33.3%;
+
+  @media screen and (min-width: 425px) {
+    opacity: 0;
+
+    &.is-visible {
+        animation: Load 600ms ease-in forwards;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 424px) {
+    width: 100%;
+  }
+}
+
+.tag {
+  width: 100%;
+  margin-top: 10px;
+  text-align: right;
+
+  i {
+    margin: 0 0.6em;
+
+    @media screen and (min-width: 1025px) {
+      &:hover {
+        color: #1cd8d2;
+        cursor: pointer;
+      }
+    }
   }
 }
 
@@ -250,3 +241,5 @@ img {
     opacity: 1;
   }
 }
+
+

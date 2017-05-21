@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-18
+// Last Change: 2017-05-21
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -200,6 +200,9 @@ module.exports = function(grunt) {
         // Compiling SASS files to CSS files.
         sass: {
             target: {
+                options: {
+                  style: "expanded"
+                },
                 files: [{
                     expand: true,
                     cwd: "sass/",
@@ -213,6 +216,9 @@ module.exports = function(grunt) {
         // Remove unused CSS.
         uncss: {
             target: {
+                options: {
+                    ignore: [".bin.is-visible"]
+                },
                 files: {
                     "build/devel/css/tidy.css": "build/devel/**/*.html"
                 }
@@ -305,10 +311,22 @@ module.exports = function(grunt) {
                 // NOTICE: The asterisk(*) wildcard should be in non-greedy mode.
                 replacements: [{
                     from: /href="(.*?)\.css"/g,
-                    to: 'href="$1.min.css"'
+                    to: function(word, i, text, match) {
+                        var file = "build/release/" + match[0] + ".min.css";
+                        if (grunt.file.exists(file)) {
+                            return "href=\"" + match[0] + ".min.css\"";
+                        }
+                        return "";
+                    }
                 },{
                     from: /src="(.*?)\.js"/g,
-                    to: 'src="$1.min.js"'
+                    to: function(word, i, text, match) {
+                        var file = "build/release/" + match[0] + ".min.js";
+                        if (grunt.file.exists(file)) {
+                            return "src=\"" + match[0] + ".min.js\"";
+                        }
+                        return "";
+                    }
                 }]
             }
         },
