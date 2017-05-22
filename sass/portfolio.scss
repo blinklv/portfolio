@@ -1,3 +1,7 @@
+$phone: "(max-width: 424px)";
+$tablet: "(min-width: 425px) and (max-width: 1024px)";
+$desktop: "(min-width: 1025px)";
+
 * {
   box-sizing: border-box;
 }
@@ -23,11 +27,7 @@ header {
 }
 
 main {
-  width: 100%;
   max-width: 1280px;
-}
-
-article {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -48,7 +48,7 @@ picture {
   overflow: hidden;
   padding: 5px;
 
-  @media screen and (max-width: 424px) {
+  @media screen and #{$phone} {
       padding: 0;
   }
 }
@@ -59,11 +59,11 @@ figure {
   overflow: hidden;
   position: relative;
 
-  @media screen and (max-width: 424px) {
+  @media screen and #{$phone} {
       margin: 0 0 20px 0;
   }
 
-  @media screen and (min-width: 425px) {
+  @media screen and #{$tablet}, screen and #{$desktop} {
     &:hover {
       figcaption {
         transform: translateY(calc(-100% - 10px));
@@ -89,14 +89,14 @@ figcaption {
     padding: 0;
   }
 
-  @media screen and (min-width: 425px) {
+  @media screen and #{$tablet}, screen and #{$desktop} {
     display: block;
     width: calc(100% - 10px);
     position: absolute;
     background: rgba(0,0,0, 0.7);
   }
 
-  @media screen and (max-width: 424px) {
+  @media screen and #{$phone} {
     width: 100%;
     display: block;
     color: #777;
@@ -151,7 +151,18 @@ figcaption {
         margin: 10px;
       }
 
-      @media screen and (min-width: 425px) {
+      @media screen and #{$phone} {
+        width: 100%;
+        picture {
+          padding: 0;
+        }
+      }
+
+      @media screen and #{$tablet} {
+        width: 100%;
+      }
+
+      @media screen and #{$tablet}, screen and #{$desktop} {
         figcaption {
           width: calc(100% - 20px);
         }
@@ -163,16 +174,6 @@ figcaption {
           }
         }
       }
-
-      @media screen and (max-width: 1024px) {
-        width: 100%;
-      }
-
-      @media screen and (max-width: 424px) {
-        picture {
-          padding: 0;
-        }
-      }
   }
 
   &:nth-child(2) {
@@ -181,7 +182,7 @@ figcaption {
         width: 100%;
       }
 
-      @media screen and (max-width: 1024px) {
+      @media screen and #{$tablet} {
         width: 100%;
 
         .bin {
@@ -189,7 +190,9 @@ figcaption {
         }
       }
 
-      @media screen and (max-width: 424px) {
+      @media screen and #{$phone} {
+        width: 100%;
+
         .bin {
           width: 100%;
         }
@@ -200,7 +203,7 @@ figcaption {
 .bin {
   width: 33.3%;
 
-  @media screen and (min-width: 425px) {
+  @media screen and #{$tablet}, screen and #{$desktop} {
     opacity: 0;
 
     &.is-visible {
@@ -208,11 +211,11 @@ figcaption {
     }
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and #{$tablet} {
     width: 50%;
   }
 
-  @media screen and (max-width: 424px) {
+  @media screen and #{$phone} {
     width: 100%;
   }
 }
@@ -225,7 +228,7 @@ figcaption {
   i {
     margin: 0 0.6em;
 
-    @media screen and (min-width: 425px) {
+    @media screen and #{$tablet}, screen and #{$desktop} {
       &:hover {
         color: #1cd8d2;
         cursor: pointer;
@@ -257,7 +260,7 @@ figcaption {
     padding: 0.2em 0.4em;
     border-radius: 0.2em;
 
-    @media screen and (min-width: 425px) {
+    @media screen and #{$tablet}, screen and #{$desktop} {
       &:hover {
         background: #0e654b;
         cursor: pointer;
@@ -275,7 +278,7 @@ figcaption {
 
   i {
     margin: 0 0.6em;
-    @media screen and (min-width: 425px) {
+    @media screen and #{$tablet}, screen and #{$desktop} {
       &:hover {
         text-shadow: 0px 0px 10px #0e654b;
         cursor: pointer;

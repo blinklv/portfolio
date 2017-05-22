@@ -1,7 +1,7 @@
 doctype html
 
 head
-  meta(charset="utf8")
+  meta(charset="utf-8")
   meta(name="viewport" content="width=device-width, initial-scale=1")
   script(src="js/jquery-3.2.0.js")
   script(src="js/main.js")
@@ -20,7 +20,6 @@ body
       p Welcome To My Portfolio
 
   main
-    article
       mixin bin(src)
         .bin
           figure
@@ -62,7 +61,7 @@ body
         var n = imgs.length;
 
       - for ( var i = 0; top < n && i < 3; ++i )
-        section(class="bulk")
+        .bulk
           if i == 0
             +bin(imgs[top])
             - ++top;
