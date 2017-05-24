@@ -11,4 +11,4 @@ requirements. The site looks like below (only in desktop).
 
 ![Desktop](readme/desktop.jpg)
 
-If you change the device (likes tablet, phone), it will be showed differently. Waiting for you to dig it :smirk:.
+If you change the device (likes tablet, phone), it will be shown differently. Waiting for you to dig it :smirk:.
