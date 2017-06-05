@@ -3,7 +3,7 @@
 // Author: blinklv <blinklv@icloud.com>
 // Create Time: 2017-03-22
 // Maintainer: blinklv <blinklv@icloud.com>
-// Last Change: 2017-05-21
+// Last Change: 2017-06-05
 // Purpose: The gruntfile.js for Web development.
 
 module.exports = function(grunt) {
@@ -292,7 +292,8 @@ module.exports = function(grunt) {
         htmlmin: {
             options: {
                 removeComments: true,
-                collapseWhitespace: true
+                collapseWhitespace: true,
+                collapseBooleanAttributes: true
             },
             target: {
                 files: [{
